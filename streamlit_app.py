@@ -23,7 +23,7 @@ from email.mime.base import MIMEBase
 from email import encoders
 
 DB_PATH = Path(__file__).with_name("clean_energy_ai.db")
-ENERGY_COLORS = ["#00C853", "#2979FF", "#FFB300", "#FF6D00", "#D50000", "#455A64"]
+ENERGY_COLORS = ["#2962FF", "#00C853", "#00B8D4", "#FFD600", "#FF6D00", "#D50000"]
 SECTION_TITLES = [
     "Executive Summary",
     "Global Electricity Demand",
@@ -494,7 +494,9 @@ def render_section_header(title: str, subtitle: str | None = None) -> None:
 
 
 def render_executive_summary(energy: pd.DataFrame, ai_demand: pd.DataFrame) -> None:
-    render_section_header("Executive Summary", "Key metrics and strategic findings for AI-driven energy demand")
+    st.title("Can Global Energy Systems Sustain the Rapid Growth of AI?")
+    st.markdown("### **ADELEKE BASHEER** | *Energy & Climate Risk Analyst*")
+    st.markdown("---")
     world = energy[energy["country"] == "World"].sort_values("year")
     latest_year = int(world["year"].max()) if not world.empty else None
     latest_world = world[world["year"] == latest_year] if latest_year else pd.DataFrame()
@@ -511,6 +513,9 @@ def render_executive_summary(energy: pd.DataFrame, ai_demand: pd.DataFrame) -> N
         forecasted_world_2035 = float(baseline_2035 + incremental_ai)
     else:
         forecasted_world_2035 = 0.0
+    st.info(
+        "**Key Conclusion:** Global electricity systems can likely sustain AI growth through 2035. The main constraint is not aggregate generation capacity, but regional grid readiness, transmission bottlenecks, and low-carbon infrastructure deployment speed."
+    )
     cols = st.columns(4)
     cols[0].metric("Latest World Electricity Demand", f"{latest_demand:,.0f} TWh", delta=f"Latest year {latest_year}")
     cols[1].metric("Latest World Carbon Intensity", f"{latest_carbon:,.2f} gCO2/kWh")
@@ -518,6 +523,7 @@ def render_executive_summary(energy: pd.DataFrame, ai_demand: pd.DataFrame) -> N
     cols[3].metric("Forecasted World Demand 2035", f"{forecasted_world_2035:,.0f} TWh")
 
     st.markdown(
+
         """
         ### Project Overview
         The dashboard examines global electricity demand, AI energy scenarios, energy mix transition, grid stress, and country readiness. It integrates data-driven metrics, scenario modeling, and investor-grade recommendations.
@@ -546,6 +552,30 @@ def render_global_electricity_demand(energy: pd.DataFrame, selected_country: str
     if world.empty:
         st.warning("No world demand data available.")
         return
+
+    years = world["year"].astype(float)
+    demand_values = world["electricity_demand"].astype(float)
+    cagr = 0.0
+    if len(years) > 1 and demand_values.iloc[0] > 0:
+        cagr = (demand_values.iloc[-1] / demand_values.iloc[0]) ** (1 / (years.iloc[-1] - years.iloc[0])) - 1
+
+    selected_data = energy[(energy["country"] == selected_country) & (energy["year"] == selected_year)]
+    generation_balance = np.nan
+    if not selected_data.empty:
+        row = selected_data.iloc[0]
+        if pd.notna(row["electricity_generation"]) and pd.notna(row["electricity_demand"]):
+            generation_balance = float(row["electricity_generation"]) - float(row["electricity_demand"])
+
+    balance_text = "N/A"
+    if pd.notna(generation_balance):
+        sign = "" if generation_balance >= 0 else "-"
+        balance_text = f"{sign}{abs(generation_balance):,.1f} TWh"
+
+    col_a, col_b, col_c = st.columns(3)
+    col_a.metric("Demand CAGR", f"{cagr * 100:.1f}%")
+    col_b.metric("Generation Surplus/Deficit", balance_text)
+    col_c.metric("Latest World Demand", f"{demand_values.iloc[-1]:,.0f} TWh")
+
     fig_historical = px.line(
         world,
         x="year",
@@ -553,7 +583,7 @@ def render_global_electricity_demand(energy: pd.DataFrame, selected_country: str
         title="Historical World Electricity Demand",
         markers=True,
         labels={"electricity_demand": "Electricity Demand (TWh)", "year": "Year"},
-        color_discrete_sequence=[ENERGY_COLORS[1]],
+        color_discrete_sequence=[ENERGY_COLORS[0]],
     )
     st.plotly_chart(fig_historical, use_container_width=True)
 
@@ -572,9 +602,10 @@ def render_global_electricity_demand(energy: pd.DataFrame, selected_country: str
         y="electricity_demand",
         title=f"Electricity Demand by Country / Region in {selected_year}",
         labels={"electricity_demand": "Demand (TWh)", "country": "Country / Region"},
-        color="electricity_demand",
-        color_continuous_scale="Viridis",
+        color="country",
+        color_discrete_sequence=ENERGY_COLORS,
     )
+    fig_region.update_layout(showlegend=False)
     st.plotly_chart(fig_region, use_container_width=True)
 
     country_latest = (
@@ -589,9 +620,10 @@ def render_global_electricity_demand(energy: pd.DataFrame, selected_country: str
         orientation="h",
         title=f"Top Per Capita Electricity Consumption in {selected_year}",
         labels={"per_capita_electricity": "Per Capita Electricity (kWh)", "country": "Country"},
-        color="per_capita_electricity",
-        color_continuous_scale="Blues",
+        color="country",
+        color_discrete_sequence=ENERGY_COLORS,
     )
+    fig_per_capita.update_layout(showlegend=False)
     st.plotly_chart(fig_per_capita, use_container_width=True)
 
     demand_vs_generation = energy[energy["country"].isin([selected_country, "World"]) & energy["year"].between(max(selected_year - 10, int(energy["year"].min())), selected_year)].copy()
@@ -606,7 +638,7 @@ def render_global_electricity_demand(energy: pd.DataFrame, selected_country: str
                     y=subset["electricity_demand"],
                     mode="lines+markers",
                     name=f"{country} Demand",
-                    line=dict(width=3),
+                    line=dict(width=3, color=ENERGY_COLORS[0]),
                 ),
                 secondary_y=False,
             )
@@ -616,7 +648,7 @@ def render_global_electricity_demand(energy: pd.DataFrame, selected_country: str
                     y=subset["electricity_generation"],
                     mode="lines+markers",
                     name=f"{country} Generation",
-                    line=dict(width=2, dash="dash"),
+                    line=dict(width=2, dash="dash", color=ENERGY_COLORS[2]),
                 ),
                 secondary_y=True,
             )
@@ -649,6 +681,16 @@ def render_ai_demand_scenarios(ai_demand: pd.DataFrame) -> None:
     )
     st.plotly_chart(fig_scenarios, use_container_width=True)
 
+    st.markdown(
+        """
+        **Scenario narratives:**
+        - **Base:** A conservative load path where AI scale-up follows established efficiency gains and current demand expectations.
+        - **High Efficiency:** Improved hardware and data center site selection reduce per-instance energy intensity, limiting system impact.
+        - **Lift-Off:** Rapid AI adoption and hyperscale expansion drive the largest incremental electricity demand by 2035.
+        - **Headwinds:** Economic or policy constraints slow AI growth, flattening demand trajectories compared to the Lift-Off path.
+        """
+    )
+
     totals_2030_2035 = scenario_series[scenario_series["year"].isin([2030, 2035])]
     fig_compare = px.bar(
         totals_2030_2035,
@@ -660,6 +702,7 @@ def render_ai_demand_scenarios(ai_demand: pd.DataFrame) -> None:
         labels={"value": "Demand (TWh)", "scenario": "Scenario"},
         color_discrete_sequence=[ENERGY_COLORS[0], ENERGY_COLORS[2]],
     )
+    fig_compare.update_layout(legend_title_text="Year")
     st.plotly_chart(fig_compare, use_container_width=True)
 
     fast_growth = (
@@ -678,6 +721,13 @@ def render_energy_mix_analysis(energy: pd.DataFrame, selected_country: str) -> N
     if country_data.empty:
         st.warning("Selected country / region data is not available.")
         return
+
+    first_renewables = country_data["renewables_share_elec"].iloc[0] if not country_data.empty else np.nan
+    last_renewables = country_data["renewables_share_elec"].iloc[-1] if not country_data.empty else np.nan
+    renewables_delta = last_renewables - first_renewables if pd.notna(first_renewables) and pd.notna(last_renewables) else np.nan
+    if pd.notna(renewables_delta):
+        st.markdown(f"### Renewables: {first_renewables:.0f}% → {last_renewables:.0f}% (+{renewables_delta:.0f} percentage points)")
+
     mix = country_data[["year", "fossil_share_elec", "renewables_share_elec", "nuclear_share_elec"]].melt(
         id_vars="year", var_name="fuel", value_name="share"
     )
@@ -688,11 +738,7 @@ def render_energy_mix_analysis(energy: pd.DataFrame, selected_country: str) -> N
         color="fuel",
         title=f"Historical Fuel Share Breakdown for {selected_country}",
         labels={"share": "Share (%)", "year": "Year", "fuel": "Fuel Type"},
-        color_discrete_map={
-            "fossil_share_elec": "#D50000",
-            "renewables_share_elec": "#00C853",
-            "nuclear_share_elec": "#2979FF",
-        },
+        color_discrete_sequence=[ENERGY_COLORS[4], ENERGY_COLORS[1], ENERGY_COLORS[0]],
     )
     st.plotly_chart(fig_mix, use_container_width=True)
 
@@ -710,9 +756,10 @@ def render_energy_mix_analysis(energy: pd.DataFrame, selected_country: str) -> N
         orientation="h",
         title=f"Top 20 Countries by Low Carbon Share ({latest_year})",
         labels={"low_carbon_share_elec": "Low Carbon Share (%)", "country": "Country"},
-        color="low_carbon_share_elec",
-        color_continuous_scale="teal",
+        color="country",
+        color_discrete_sequence=ENERGY_COLORS,
     )
+    fig_ranking.update_layout(showlegend=False)
     st.plotly_chart(fig_ranking, use_container_width=True)
 
     trends = country_data[["year", "solar_share_elec", "wind_share_elec", "hydro_share_elec"]].melt(
@@ -726,6 +773,7 @@ def render_energy_mix_analysis(energy: pd.DataFrame, selected_country: str) -> N
         title=f"Solar, Wind and Hydro Share Trends for {selected_country}",
         labels={"share": "Share (%)", "year": "Year", "technology": "Technology"},
         markers=True,
+        color_discrete_sequence=ENERGY_COLORS,
     )
     st.plotly_chart(fig_trends, use_container_width=True)
 
@@ -734,6 +782,19 @@ def render_ai_energy_readiness(readiness: pd.DataFrame) -> None:
     render_section_header("AI Energy Readiness Rankings", "Country readiness scoring for AI electrification")
     top20 = readiness.head(20).copy()
     bottom20 = readiness.tail(20).sort_values("score")
+
+    fig_readiness = px.bar(
+        top20.head(10).iloc[::-1],
+        x="score",
+        y="country",
+        orientation="h",
+        title="Top 10 AI Energy Readiness Leaders",
+        labels={"score": "Readiness Score", "country": "Country"},
+        color="score",
+        color_continuous_scale=ENERGY_COLORS,
+    )
+    st.plotly_chart(fig_readiness, use_container_width=True)
+
     st.markdown("### Top 20 Readiness Leaders")
     st.dataframe(top20[["country", "score", "category", "renewables_share_elec", "low_carbon_share_elec", "carbon_intensity_elec"]], use_container_width=True)
     st.markdown("### Bottom 20 Readiness Risks")
@@ -747,6 +808,15 @@ def render_grid_stress_index(grid_stress: pd.DataFrame) -> None:
     render_section_header("Grid Stress Index", "Ranking and risk heatmaps for grid resilience")
     st.markdown("### Stress Summary")
     st.dataframe(grid_stress[["country", "grid_stress_index", "stress_category", "fossil_share_elec", "carbon_intensity_elec"]].head(25), use_container_width=True)
+
+    col1, col2, col3 = st.columns(3)
+    col1.markdown("#### 🟢 Low Stress (0–50)")
+    col1.markdown("Stable systems with manageable fossil dependence and good performance.")
+    col2.markdown("#### 🟡 Moderate Stress (50–75)")
+    col2.markdown("Elevated risk that requires targeted upgrades and flexibility measures.")
+    col3.markdown("#### 🔴 High Stress (75+)")
+    col3.markdown("Urgent grid modernization and reliability investment are needed.")
+
     correlation_data = grid_stress[
         ["grid_stress_index", "fossil_share_elec", "carbon_intensity_elec", "electricity_demand", "electricity_generation"]
     ].dropna()
@@ -766,8 +836,49 @@ def render_grid_stress_index(grid_stress: pd.DataFrame) -> None:
 
 def render_regional_risk_model(regional_risk: pd.DataFrame) -> None:
     render_section_header("Regional Risk Model", "Lowest and highest risk regions for AI electricity demand")
-    lowest20 = regional_risk.head(20)[["country", "risk_score", "carbon_intensity_elec", "fossil_share_elec", "demand_growth"]]
-    highest20 = regional_risk.tail(20).sort_values("risk_score", ascending=False)[["country", "risk_score", "carbon_intensity_elec", "fossil_share_elec", "demand_growth"]]
+    regional_risk = regional_risk.copy()
+    regional_risk["risk_category"] = pd.cut(
+        regional_risk["risk_score"],
+        bins=[-np.inf, regional_risk["risk_score"].quantile(0.33), regional_risk["risk_score"].quantile(0.66), np.inf],
+        labels=["Lower Risk", "Medium Risk", "Higher Risk"],
+    )
+    lowest20 = regional_risk.nsmallest(20, "risk_score")[["country", "risk_score", "risk_category", "carbon_intensity_elec", "fossil_share_elec", "demand_growth"]]
+    highest20 = regional_risk.nlargest(20, "risk_score")[["country", "risk_score", "risk_category", "carbon_intensity_elec", "fossil_share_elec", "demand_growth"]]
+
+    top10 = regional_risk.nsmallest(10, "risk_score").iloc[::-1]
+    fig_top10 = px.bar(
+        top10,
+        x="risk_score",
+        y="country",
+        orientation="h",
+        title="Top 10 Lowest Regional Risk Scores",
+        labels={"risk_score": "Risk Score", "country": "Country"},
+        color="risk_category",
+        color_discrete_map={
+            "Lower Risk": "#00C853",
+            "Medium Risk": "#FFD600",
+            "Higher Risk": "#FF6D00",
+        },
+    )
+    fig_top10.update_layout(showlegend=True, legend_title_text="Risk Category")
+    st.plotly_chart(fig_top10, use_container_width=True)
+
+    try:
+        fig_map = px.choropleth(
+            regional_risk,
+            locations="country",
+            color="risk_score",
+            locationmode="country names",
+            hover_name="country",
+            hover_data={"risk_score": True, "carbon_intensity_elec": True, "fossil_share_elec": True, "demand_growth": True},
+            color_continuous_scale="RdYlGn_r",
+            title="Regional AI Electricity Risk Score Choropleth",
+        )
+        fig_map.update_layout(margin=dict(l=0, r=0, t=50, b=0))
+        st.plotly_chart(fig_map, use_container_width=True)
+    except Exception:
+        st.info("Choropleth map is unavailable for some country names in this environment.")
+
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("#### Top 20 Lowest Risk Regions")
@@ -775,6 +886,7 @@ def render_regional_risk_model(regional_risk: pd.DataFrame) -> None:
     with col2:
         st.markdown("#### Top 20 Highest Risk Regions")
         st.dataframe(highest20, use_container_width=True)
+
     st.markdown(
         "A lower risk score reflects cleaner electricity systems, lower fossil dependency, and slower demand growth, while higher risk regions require accelerated transition funding and grid reinforcement."
     )
@@ -965,8 +1077,6 @@ def main() -> None:
     if energy.empty or ai_demand.empty:
         st.error("Required data is missing from the database. Please verify clean_energy_ai.db contains clean_energy and clean_ai_demand tables.")
         return
-    st.sidebar.title("ADELEKE BASHEER")
-    st.sidebar.caption("Energy & Climate Risk Analyst")
     st.sidebar.markdown("---")
     st.sidebar.markdown("### **Project:** Can Global Energy Systems Sustain the Rapid Growth of AI?\n*AI, Electricity Demand & Energy System Constraints*")
     st.sidebar.markdown("---")
