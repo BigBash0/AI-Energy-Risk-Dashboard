@@ -411,9 +411,13 @@ def send_pdf_email(recipient_email: str, pdf_data: bytes) -> tuple[bool, str]:
     SMTP_PORT = int(os.environ.get("SMTP_PORT", 587))
 
     # Allow credentials from environment variables or Streamlit secrets for secure deployment.
-    # Falls back to the in-code placeholders when not provided.
-    SENDER_EMAIL = os.environ.get("SENDER_EMAIL") or _get_secret_value("SENDER_EMAIL") or "your_portfolio_sender@gmail.com"
-    SENDER_PASSWORD = os.environ.get("SENDER_PASSWORD") or _get_secret_value("SENDER_PASSWORD") or "your_app_password"
+    # Falls back to the user's local demo placeholder when not provided.
+    SENDER_EMAIL = os.environ.get("SENDER_EMAIL") or _get_secret_value("SENDER_EMAIL") or "adelekebasheer21@gmail.com"
+    try:
+        secret_password = st.secrets.get("SENDER_PASSWORD", None) if hasattr(st, "secrets") else None
+    except Exception:
+        secret_password = None
+    SENDER_PASSWORD = os.environ.get("SENDER_PASSWORD") or secret_password or "your_secure_app_password"
 
     # Build message
     msg = MIMEMultipart()
@@ -923,7 +927,7 @@ def render_final_report(
         mime="application/pdf",
     )
     st.markdown("### Automated Email Alert System")
-    email = st.text_input("Recipient Email", value="alerts@example.com")
+    email = st.text_input("Recipient Email", value="adelekebasheer21@gmail.com")
     trigger = st.selectbox(
         "Alert Trigger Condition",
         ["Grid Stress Index > 75", "AI Demand Lift-Off > Base by 10%", "Low Carbon Share < 40%", "Demand Growth > 5% per year"],
