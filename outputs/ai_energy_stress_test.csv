@@ -1,0 +1,9 @@
+metric_category,segment,scenario,year,value,forecast_world_demand_twh,ai_share_pct,stress_level
+Electricity consumption (TWh),Total,Base,2030,946.0,36547.21569218647,2.588432475862307,LOW STRESS
+Electricity consumption (TWh),Total,Base,2035,1193.0,42039.66577389465,2.837796110027156,LOW STRESS
+Electricity consumption (TWh),Total,Headwinds,2030,669.0,36547.21569218647,1.8305088016404687,LOW STRESS
+Electricity consumption (TWh),Total,Headwinds,2035,707.0,42039.66577389465,1.6817450543077948,LOW STRESS
+Electricity consumption (TWh),Total,High Efficiency,2030,792.0,36547.21569218647,2.1670597472335595,LOW STRESS
+Electricity consumption (TWh),Total,High Efficiency,2035,972.0,42039.66577389465,2.312102111438722,LOW STRESS
+Electricity consumption (TWh),Total,Lift-Off,2030,1264.0,36547.21569218647,3.4585397986151762,MODERATE STRESS
+Electricity consumption (TWh),Total,Lift-Off,2035,1719.0,42039.66577389465,4.088995400785147,MODERATE STRESS

@@ -1,0 +1,12 @@
+scenario,year,ai_demand_twh,solar_capacity_needed_gw,wind_capacity_needed_gw
+Base,2030,946.0,539.95,308.55
+Base,2035,1193.0,680.94,389.11
+Headwinds,2030,669.0,381.85,218.2
+Headwinds,2035,707.0,403.54,230.59
+High Efficiency,2030,792.0,452.05,258.32
+High Efficiency,2035,972.0,554.79,317.03
+Historical,2020,269.0,153.54,87.74
+Historical,2023,361.0,206.05,117.74
+Historical,2024,416.0,237.44,135.68
+Lift-Off,2030,1264.0,721.46,412.26
+Lift-Off,2035,1719.0,981.16,560.67

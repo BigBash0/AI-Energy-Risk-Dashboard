@@ -1,0 +1,89 @@
+metric_category,segment,scenario,year,value
+Electricity consumption (TWh),Colocation and service provider,Base,2030,355.0
+Electricity consumption (TWh),Colocation and service provider,Base,2030,266.0
+Electricity consumption (TWh),Colocation and service provider,Base,2035,493.0
+Electricity consumption (TWh),Colocation and service provider,Base,2035,406.0
+Electricity consumption (TWh),Colocation and service provider,Headwinds,2030,246.0
+Electricity consumption (TWh),Colocation and service provider,Headwinds,2030,185.0
+Electricity consumption (TWh),Colocation and service provider,Headwinds,2035,285.0
+Electricity consumption (TWh),Colocation and service provider,Headwinds,2035,235.0
+Electricity consumption (TWh),Colocation and service provider,High Efficiency,2030,385.0
+Electricity consumption (TWh),Colocation and service provider,High Efficiency,2030,291.0
+Electricity consumption (TWh),Colocation and service provider,High Efficiency,2035,490.0
+Electricity consumption (TWh),Colocation and service provider,High Efficiency,2035,425.0
+Electricity consumption (TWh),Colocation and service provider,Historical,2020,85.0
+Electricity consumption (TWh),Colocation and service provider,Historical,2020,51.0
+Electricity consumption (TWh),Colocation and service provider,Historical,2023,112.0
+Electricity consumption (TWh),Colocation and service provider,Historical,2023,72.0
+Electricity consumption (TWh),Colocation and service provider,Historical,2024,144.0
+Electricity consumption (TWh),Colocation and service provider,Historical,2024,94.0
+Electricity consumption (TWh),Colocation and service provider,Lift-Off,2030,482.0
+Electricity consumption (TWh),Colocation and service provider,Lift-Off,2030,361.0
+Electricity consumption (TWh),Colocation and service provider,Lift-Off,2035,721.0
+Electricity consumption (TWh),Colocation and service provider,Lift-Off,2035,594.0
+Electricity consumption (TWh),Enterprise,Base,2030,213.0
+Electricity consumption (TWh),Enterprise,Base,2030,124.0
+Electricity consumption (TWh),Enterprise,Base,2035,234.0
+Electricity consumption (TWh),Enterprise,Base,2035,153.0
+Electricity consumption (TWh),Enterprise,Headwinds,2030,144.0
+Electricity consumption (TWh),Enterprise,Headwinds,2030,84.0
+Electricity consumption (TWh),Enterprise,Headwinds,2035,128.0
+Electricity consumption (TWh),Enterprise,Headwinds,2035,84.0
+Electricity consumption (TWh),Enterprise,High Efficiency,2030,10.0
+Electricity consumption (TWh),Enterprise,High Efficiency,2030,6.0
+Electricity consumption (TWh),Enterprise,High Efficiency,2035,10.0
+Electricity consumption (TWh),Enterprise,High Efficiency,2035,7.0
+Electricity consumption (TWh),Enterprise,Historical,2020,85.0
+Electricity consumption (TWh),Enterprise,Historical,2020,42.0
+Electricity consumption (TWh),Enterprise,Historical,2023,100.0
+Electricity consumption (TWh),Enterprise,Historical,2023,51.0
+Electricity consumption (TWh),Enterprise,Historical,2024,106.0
+Electricity consumption (TWh),Enterprise,Historical,2024,55.0
+Electricity consumption (TWh),Enterprise,Lift-Off,2030,303.0
+Electricity consumption (TWh),Enterprise,Lift-Off,2030,176.0
+Electricity consumption (TWh),Enterprise,Lift-Off,2035,372.0
+Electricity consumption (TWh),Enterprise,Lift-Off,2035,242.0
+Electricity consumption (TWh),Hyperscale,Base,2030,378.0
+Electricity consumption (TWh),Hyperscale,Base,2030,342.0
+Electricity consumption (TWh),Hyperscale,Base,2035,466.0
+Electricity consumption (TWh),Hyperscale,Base,2035,427.0
+Electricity consumption (TWh),Hyperscale,Headwinds,2030,279.0
+Electricity consumption (TWh),Hyperscale,Headwinds,2030,253.0
+Electricity consumption (TWh),Hyperscale,Headwinds,2035,293.0
+Electricity consumption (TWh),Hyperscale,Headwinds,2035,269.0
+Electricity consumption (TWh),Hyperscale,High Efficiency,2030,397.0
+Electricity consumption (TWh),Hyperscale,High Efficiency,2030,360.0
+Electricity consumption (TWh),Hyperscale,High Efficiency,2035,472.0
+Electricity consumption (TWh),Hyperscale,High Efficiency,2035,432.0
+Electricity consumption (TWh),Hyperscale,Historical,2020,100.0
+Electricity consumption (TWh),Hyperscale,Historical,2020,84.0
+Electricity consumption (TWh),Hyperscale,Historical,2023,148.0
+Electricity consumption (TWh),Hyperscale,Historical,2023,129.0
+Electricity consumption (TWh),Hyperscale,Historical,2024,166.0
+Electricity consumption (TWh),Hyperscale,Historical,2024,146.0
+Electricity consumption (TWh),Hyperscale,Lift-Off,2030,479.0
+Electricity consumption (TWh),Hyperscale,Lift-Off,2030,434.0
+Electricity consumption (TWh),Hyperscale,Lift-Off,2035,626.0
+Electricity consumption (TWh),Hyperscale,Lift-Off,2035,574.0
+Electricity consumption (TWh),IT,Base,2030,733.0
+Electricity consumption (TWh),IT,Base,2035,985.0
+Electricity consumption (TWh),IT,Headwinds,2030,522.0
+Electricity consumption (TWh),IT,Headwinds,2035,587.0
+Electricity consumption (TWh),IT,High Efficiency,2030,657.0
+Electricity consumption (TWh),IT,High Efficiency,2035,864.0
+Electricity consumption (TWh),IT,Historical,2020,176.0
+Electricity consumption (TWh),IT,Historical,2023,252.0
+Electricity consumption (TWh),IT,Historical,2024,295.0
+Electricity consumption (TWh),IT,Lift-Off,2030,972.0
+Electricity consumption (TWh),IT,Lift-Off,2035,1409.0
+Electricity consumption (TWh),Total,Base,2030,946.0
+Electricity consumption (TWh),Total,Base,2035,1193.0
+Electricity consumption (TWh),Total,Headwinds,2030,669.0
+Electricity consumption (TWh),Total,Headwinds,2035,707.0
+Electricity consumption (TWh),Total,High Efficiency,2030,792.0
+Electricity consumption (TWh),Total,High Efficiency,2035,972.0
+Electricity consumption (TWh),Total,Historical,2020,269.0
+Electricity consumption (TWh),Total,Historical,2023,361.0
+Electricity consumption (TWh),Total,Historical,2024,416.0
+Electricity consumption (TWh),Total,Lift-Off,2030,1264.0
+Electricity consumption (TWh),Total,Lift-Off,2035,1719.0

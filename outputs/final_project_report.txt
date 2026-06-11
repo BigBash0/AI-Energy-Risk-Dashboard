@@ -1,0 +1,145 @@
+CAN GLOBAL ENERGY SYSTEMS SUSTAIN THE RAPID GROWTH OF AI?
+
+
+======================================================================
+
+EXECUTIVE SUMMARY
+
+This study evaluates whether global energy systems can support rapidly growing AI and data-center electricity demand.
+
+Highest stress scenario: Lift-Off (2035)
+
+AI Share of Demand: 4.09%
+
+
+TOP AI READY COUNTRIES
+
+- Ethiopia
+
+- Paraguay
+
+- Costa Rica
+
+- Norway
+
+- Uruguay
+
+- Tajikistan
+
+- Denmark
+
+- Luxembourg
+
+- Kenya
+
+- Sweden
+
+
+HIGH RISK COUNTRIES
+
+- Azerbaijan
+
+- Bangladesh
+
+- Egypt
+
+- India
+
+- Iran
+
+- Kazakhstan
+
+- Kosovo
+
+- Kuwait
+
+- Moldova
+
+- Mongolia
+
+
+KEY FINDINGS
+
+1. AI demand remains a relatively small share of total global electricity demand.
+
+2. Regional grid readiness is more important than global electricity supply.
+
+3. Renewable-rich countries are best positioned for AI expansion.
+
+4. Carbon-intensive systems face higher risk.
+
+5. Grid infrastructure investment will become increasingly important.
+
+
+ENERGY TRANSITION REQUIREMENTS
+
+Base 2030
+
+Solar Needed: 539954 GW
+
+Wind Needed: 308545 GW
+
+Base 2035
+
+Solar Needed: 680936 GW
+
+Wind Needed: 389106 GW
+
+Headwinds 2030
+
+Solar Needed: 381849 GW
+
+Wind Needed: 218200 GW
+
+Headwinds 2035
+
+Solar Needed: 403539 GW
+
+Wind Needed: 230594 GW
+
+High Efficiency 2030
+
+Solar Needed: 452055 GW
+
+Wind Needed: 258317 GW
+
+High Efficiency 2035
+
+Solar Needed: 554795 GW
+
+Wind Needed: 317025 GW
+
+Historical 2020
+
+Solar Needed: 153539 GW
+
+Wind Needed: 87736 GW
+
+Historical 2023
+
+Solar Needed: 206050 GW
+
+Wind Needed: 117743 GW
+
+Historical 2024
+
+Solar Needed: 237443 GW
+
+Wind Needed: 135682 GW
+
+Lift-Off 2030
+
+Solar Needed: 721461 GW
+
+Wind Needed: 412264 GW
+
+Lift-Off 2035
+
+Solar Needed: 981164 GW
+
+Wind Needed: 560665 GW
+
+
+FINAL CONCLUSION
+
+Global energy systems can support AI growth, but regional constraints, carbon intensity, and infrastructure readiness will determine where AI expansion occurs successfully.
